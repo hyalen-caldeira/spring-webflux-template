@@ -10,7 +10,7 @@ import us.hyalen.webfluxtemplate.core.dto.EmployeeDto;
 import us.hyalen.webfluxtemplate.core.dto.ResponseDto;
 import us.hyalen.webfluxtemplate.core.service.EmployeeService;
 
-@RestController
+@RestController("EmployeeController_v1")
 @RequestMapping("api/employees")
 @AllArgsConstructor
 public class EmployeeController {
@@ -60,7 +60,7 @@ public class EmployeeController {
     @PutMapping("{id}")
     public Mono<ResponseDto<EmployeeDto>> updateEmployee(@RequestBody EmployeeDto employeeDto,
                                             @PathVariable("id") String employeeId) {
-        return employeeService.updateEmployee(employeeDto, employeeId).map(dto -> ResponseDto.forSuccess(dto));
+        return employeeService.updateEmployee(employeeDto, employeeId).map(ResponseDto::forSuccess);
     }
 
     @DeleteMapping("{id}")

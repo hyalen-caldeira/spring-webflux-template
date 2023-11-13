@@ -44,7 +44,6 @@ class EmployeeControllerTest {
 
     @Test
     public void testSaveEmployee(){
-
         EmployeeDto employeeDto = new EmployeeDto();
         employeeDto.setFirstName("John");
         employeeDto.setLastName("Cena");
