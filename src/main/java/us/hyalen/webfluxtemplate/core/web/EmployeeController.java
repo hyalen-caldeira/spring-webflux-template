@@ -10,6 +10,8 @@ import us.hyalen.webfluxtemplate.core.dto.EmployeeDto;
 import us.hyalen.webfluxtemplate.core.dto.ResponseDto;
 import us.hyalen.webfluxtemplate.core.service.EmployeeService;
 
+import static org.springframework.http.ResponseEntity.ok;
+
 @RestController("EmployeeController_v1")
 @RequestMapping("api/employees")
 @AllArgsConstructor
@@ -38,9 +40,9 @@ public class EmployeeController {
 //    }
 
     @GetMapping("{id}")
-    public Mono<ResponseDto<EmployeeDto>> getEmployee(@PathVariable("id") String employeeId) {
+    public Mono<?> getEmployee(@PathVariable("id") String employeeId) {
         // Get employee by id and save to employeeMono
-        return employeeService.getEmployee(employeeId).map(dto -> ResponseDto.forSuccess(dto));
+        return employeeService.getEmployee(employeeId).map(data -> ok(ResponseDto.forSuccess(data)));
     }
 
     @GetMapping

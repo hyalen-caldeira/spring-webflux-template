@@ -71,15 +71,17 @@ class EmployeeControllerTest {
 
         EmployeeDto savedEmployee = employeeService.saveEmployee(employeeDto).block();
 
+        assert savedEmployee != null;
+
         webTestClient.get().uri("/api/employees/{id}", Collections.singletonMap("id", savedEmployee.getId()))
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody()
                 .consumeWith(System.out::println)
-                .jsonPath("$.data.id").isEqualTo(savedEmployee.getId())
-                .jsonPath("$.data.firstName").isEqualTo(employeeDto.getFirstName())
-                .jsonPath("$.data.lastName").isEqualTo(employeeDto.getLastName())
-                .jsonPath("$.data.email").isEqualTo(employeeDto.getEmail());
+                .jsonPath("$.body.data.id").isEqualTo(savedEmployee.getId())
+                .jsonPath("$.body.data.firstName").isEqualTo(employeeDto.getFirstName())
+                .jsonPath("$.body.data.lastName").isEqualTo(employeeDto.getLastName())
+                .jsonPath("$.body.data.email").isEqualTo(employeeDto.getEmail());
     }
 
     @Test
